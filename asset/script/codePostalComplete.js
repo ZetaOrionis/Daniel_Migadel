@@ -21,6 +21,7 @@ $(document).ready(function(){
       },
       minLength:2,
       select: function(event,ui) {
+        $("#ville").val(ui.item.value);
         requeteFlickRImages();
       }
   });
@@ -29,6 +30,29 @@ $(document).ready(function(){
     $("#tabs").tabs();
   });
 
+  $("#datavide").dialog({
+    autoOpen : false,
+    show : {
+      effect : "fade",
+      width: 1000,
+      height : 1000
+    },
+    hide : {
+      effect : "blind",
+    }
+  });
+
+  $("#infoImage").dialog({
+    autoOpen : false,
+    show : {
+      effect : "fade",
+      width: 1000,
+      height : 1000
+    },
+    hide : {
+      effect : "blind",
+    }
+  });
 
 });
 
@@ -45,18 +69,21 @@ function requeteFlickRImages() {
       per_page : $('#nbphotos').val()
     }).done(function(data) {
       console.log(data);
-      $.each(data.photos.photo, function(index, photo) {
+      if(data.photos.photo.length == 0) {
+        $("#datavide").dialog("open");
+      } else {
+        $.each(data.photos.photo, function(index, photo) {
 
-        var farm = photo.farm;
-        var server = photo.server;
-        var id = photo.id;
-        var secret = photo.secret;
-        var url = "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+".jpg";
+          var farm = photo.farm;
+          var server = photo.server;
+          var id = photo.id;
+          var secret = photo.secret;
+          var url = "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+".jpg";
 
-        $("<img>").attr("src", url). attr("data-id",id).appendTo("#tabs-1");
-        $("<img>").attr("src", url).appendTo("#tabs-2");
-      })
-
+          $("<img>").attr("src", url).attr("data-id",id).appendTo("#tabs-1");
+          $("<img>").attr("src", url).appendTo("#tabs-2");
+        })
+      }
     }).fail(function() {
       alert("Ajax call failed");
     });
@@ -67,13 +94,14 @@ function requeteFlickRImages() {
       console.log($("#tabs-1 img"));
       $('#tabs-1 img').click(function() {
         var id = $(this).attr("data-id");
-        requeteFlickRImageInfos(id);
+        var url = $(this).attr("src");
+        requeteFlickRImageInfos(id,url);
       });
     });
 
 }
 
-function requeteFlickRImageInfos(id) {
+function requeteFlickRImageInfos(id,url) {
   var flickRApiUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&nojsoncallback=1";
 
   var get = $.getJSON(flickRApiUrl,{
@@ -86,12 +114,12 @@ function requeteFlickRImageInfos(id) {
       var username = data.photo.owner.username;
       var title = data.photo.title._content;
 
-      //cRÉER FENETRE MODAL
+      //CRÉER FENETRE MODAL
+      $("#infoImage").dialog("open");
+      $("#textInfoImage").text("Titre : "+title);
+      $("#textInfoImage").prepend("<img id="+id+" src="+url+" />");
 
   }).fail(function() {
     alert("Ajax call failed");
-  });
-  $.when(get).done(function() {
-    return object;
   });
 }

@@ -9,15 +9,14 @@
   <body>
 
     <form>
-      <p>Entrer une commune <input id="ville" type="text" name="commune"> </p>
-      <select id="nbphotos" name="nbImage">
+      <p>Entrer une commune : <input id="ville" type="text" name="commune"> </p>
+      <p>Nombre d'images à afficher : <select id="nbphotos" name="nbImage"> </p>
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>
         <option value="20">20</option>
         <option value="25">25</option>
       </select>
-       <button type="button" id="Recherche">Recherche</button>
     </form>
 
     <div id="tabs">
@@ -36,6 +35,14 @@
         <!-- les photos s'affichent dans une table avec dans chaque ligne, une vignette de la
         photo + dans les autres cellules de la table, les informations relatives à la photo-->
       </div>
+    </div>
+
+    <div id="datavide" title="Error : Aucunes photos trouvées">
+      <p>Désolé nous n'avons pas trouvé de photos correspondante à votre requête.</p>
+    </div>
+
+    <div id="infoImage">
+      <div id="textInfoImage"></div>
     </div>
 
   </body>
