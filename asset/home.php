@@ -2,12 +2,14 @@
   <head>
     <meta charset="utf-8">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="css/jquery-ui.css"/>
+    <link rel="stylesheet" href="css/home.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
     <script type="text/javascript" src="script/codePostalComplete.js"></script>
   </head>
   <body>
-
+    <div class="background-image"></div>
+    <h1>City Search</h1>
     <form>
       <p>Entrer une commune : <input id="ville" type="text" name="commune"> </p>
       <p>Nombre d'images à afficher : <select id="nbphotos" name="nbImage"> </p>
@@ -19,12 +21,16 @@
       </select>
     </form>
 
-    <div id="tabs">
-      <ul>
-        <li><a href="#tabs-1">Vue Photo</a></li>
-        <li><a href="#tabs-2">Vue Tableau</a></li>
-      </ul>
+    <div id="tabs" class="tabs">
+      <div class="btn-group">
+        <button class="button" id="button-tabs-1">Vue Photo</button>
+        <button class="button" id="button-tabs-2">Vue Tableau</button>
+      </div>
+      <br>
+      <br>
+      <br>
       <div id="tabs-1">
+
         <!-- les photos s'affichent les unes en dessous des autres, sans infos
         verifier si l'array est vide dans le Jquery avent d'afficher, car si vide
         on créer une fenetre modale-->
@@ -32,6 +38,7 @@
         modale (UI Dialog)-->
       </div>
       <div id="tabs-2">
+
         <!-- les photos s'affichent dans une table avec dans chaque ligne, une vignette de la
         photo + dans les autres cellules de la table, les informations relatives à la photo-->
       </div>
