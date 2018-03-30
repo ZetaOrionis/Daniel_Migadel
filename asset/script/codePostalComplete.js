@@ -89,7 +89,7 @@ function requeteFlickRImages() {
       if(data.photos.photo.length == 0) {
         $("#datavide").dialog("open");
       } else {
-        $('#tabs-2').append("<tr><th>Image</th><th>Titre</th><th>Username</th><th>Date</th></tr>");
+        $('#table').append("<tr><th>Image</th><th>Titre</th><th>Username</th><th>Date</th></tr>");
         $.each(data.photos.photo, function(index, photo) {
 
           var farm = photo.farm;

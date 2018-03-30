@@ -25,6 +25,14 @@ form {
   text-align: center;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
 .btn-group {
   margin-left: 39.5vw;
 }
