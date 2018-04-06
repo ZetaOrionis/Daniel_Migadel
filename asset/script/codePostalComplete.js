@@ -1,5 +1,17 @@
 $(document).ready(function(){
 
+  $(function() {
+
+   $.datepicker.setDefaults($.datepicker.regional['fr']);
+
+   $(".datepicker").datepicker({
+
+      dateFormat: 'dd-mm-yy'
+
+   });
+
+  });
+
   $("#tabs-2").hide();
 
   $("#button-tabs-1").click(function() {
@@ -107,6 +119,7 @@ function requeteFlickRImages() {
       api_key : "753d73b4c8cd87f833d3dc98665e9dce",
       tags : $('#ville').val(),
       format : "json",
+      min_taken_date : $('.datepicker').val(),
       per_page : $('#nbphotos').val()
     }).done(function(dataInfo) {
       if(dataInfo.photos.photo.length == 0) {
@@ -134,7 +147,7 @@ function requeteFlickRImages() {
             format : "json",
           }).done(function(dataInfo2) {
 
-              /*var date = new Date(data.photo.dates.taken*1000);*/
+              /*var date = new Date(data.photo.dates.taken);*/
               dataSet.push([
                 "<img src=\""+url+"\"/>",
                 dataInfo2.photo.title._content,
