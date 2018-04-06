@@ -32,28 +32,7 @@ table {
 table, th, td {
     border: 1px solid black;
 }
-
-.btn-group {
-  margin-left: 39.5vw;
-}
-
-.btn-group .button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  float: left;
-}
-
-.btn-group .button:hover {
-    background-color: #3e8e41;
-}
-
+/*
 .tabs {
   margin-top: 7.5vh;
 }
@@ -67,3 +46,4 @@ table, th, td {
     float: none;
     margin: 0em;
 }
+*/

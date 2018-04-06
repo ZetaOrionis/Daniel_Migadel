@@ -5,7 +5,11 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/jquery-ui.css"/>
     <link rel="stylesheet" href="css/home.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
     <script type="text/javascript" src="script/codePostalComplete.js"></script>
   </head>
   <body>
@@ -39,7 +43,17 @@
         modale (UI Dialog)-->
       </div>
       <div id="tabs-2">
-        <table id="table"></table>
+        <table id="table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Titre</th>
+              <th>User</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+        </tbody id='tbody'></tbody>
+        </table>
         <!-- les photos s'affichent dans une table avec dans chaque ligne, une vignette de la
         photo + dans les autres cellules de la table, les informations relatives à la photo-->
       </div>

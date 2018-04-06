@@ -3,13 +3,11 @@ $(document).ready(function(){
   $("#tabs-2").hide();
 
   $("#button-tabs-1").click(function() {
-    console.log("coucou");
     $("#tabs-2").hide();
     $('#tabs-1').show();
   });
 
   $("#button-tabs-2").click(function() {
-    console.log("coucou2");
     $("#tabs-1").hide();
     $('#tabs-2').show();
   });
@@ -72,10 +70,35 @@ $(document).ready(function(){
 
 });
 
+var dataSet = [];
+var nbrImageDone = 0;
+var nbrImage = 0;
+var datatable = false;
+var table = null;
+$(document).ajaxComplete(function(){
+  if(nbrImageDone == nbrImage) {
+    if(datatable == false) {
+      datatable = true;
+      table = $('#table').dataTable({
+        "data" : dataSet,
+        "searching" : false
+      });
+    } else {
+      table.fnClearTable();
+      if(typeof dataSet !== "undifined" && dataSet.length != 0) {
+        table.fnAddData(dataSet);
+      }
+    }
+  } else {
+    nbrImageDone++;
+  }
+});
+
 function requeteFlickRImages() {
     $('#tabs-1').empty();
-    $('#tabs-2').empty();
+    $('#tbody').empty();
 
+    dataSet = [];
     var flickRApiUrl = "https://api.flickr.com/services/rest/";
 
     var get = $.getJSON(flickRApiUrl,{
@@ -85,12 +108,13 @@ function requeteFlickRImages() {
       tags : $('#ville').val(),
       format : "json",
       per_page : $('#nbphotos').val()
-    }).done(function(data) {
-      if(data.photos.photo.length == 0) {
+    }).done(function(dataInfo) {
+      if(dataInfo.photos.photo.length == 0) {
         $("#datavide").dialog("open");
       } else {
-        $('#table').append("<tr><th>Image</th><th>Titre</th><th>Username</th><th>Date</th></tr>");
-        $.each(data.photos.photo, function(index, photo) {
+        nbrImage = dataInfo.photos.photo.length;
+        console.log("Max Img : "+nbrImage);
+        var getInfo = $.each(dataInfo.photos.photo, function(index, photo) {
 
           var farm = photo.farm;
           var server = photo.server;
@@ -102,27 +126,31 @@ function requeteFlickRImages() {
 
           var flickRApiUrl2 = "https://api.flickr.com/services/rest/";
 
-          var get = $.getJSON(flickRApiUrl2,{
+          var ajaxgetInfo = $.getJSON(flickRApiUrl2,{
             method : "flickr.photos.getInfo",
             nojsoncallback : "1",
             api_key : "753d73b4c8cd87f833d3dc98665e9dce",
             photo_id : id,
             format : "json",
-          }).done(function(data) {
+          }).done(function(dataInfo2) {
 
-              var date = data.photo.dates.taken;
-              var username = data.photo.owner.username;
-              var title = data.photo.title._content;
+              /*var date = new Date(data.photo.dates.taken*1000);*/
+              dataSet.push([
+                "<img src=\""+url+"\"/>",
+                dataInfo2.photo.title._content,
+                dataInfo2.photo.owner.username,
+                dataInfo2.photo.dates.taken
+              ]);
 
-              //CRÉER TABLEAU
-              $('#tabs-2').append("<tr><td><img src="+url+"/></td><td>"+title+"</td><td>"+username+"</td><td>"+date+"</td></tr>");
 
           }).fail(function() {
             alert("Ajax call failed");
           });
 
         })
+
       }
+
     }).fail(function() {
       alert("Ajax call failed");
     });
@@ -138,6 +166,7 @@ function requeteFlickRImages() {
     });
 
 }
+
 
 function requeteFlickRImageInfos(id,url) {
   var flickRApiUrl = "https://api.flickr.com/services/rest/";
