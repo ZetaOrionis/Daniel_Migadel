@@ -3,7 +3,7 @@
   display: block;
   width: 100%;
   height: auto;
-  background-image: url("../img/jardinfonderie.jpg");
+  background-image: url("../images/jardinfonderie.jpg");
   background-position: center;
 
 
@@ -13,6 +13,10 @@
   -ms-filter: blur(5px);
   filter: blur(5px);
 
+}
+
+.button {
+  margin-left: 31%;
 }
 
 h1 {

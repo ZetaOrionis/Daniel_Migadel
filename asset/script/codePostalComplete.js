@@ -12,6 +12,17 @@ $(document).ready(function(){
 
   });
 
+  $("#submit").button({
+    icon: {
+      primary : 'ui-icon-circle-triangle-e'
+    }
+  });
+
+  $("#submit").click(function (e){
+    e.preventDefault();
+    requeteFlickRImages();
+  });
+
   $("#tabs-2").hide();
 
   $("#button-tabs-1").click(function() {
@@ -109,10 +120,8 @@ $(document).ajaxComplete(function(){
 function requeteFlickRImages() {
     $('#tabs-1').empty();
     $('#tbody').empty();
-
     dataSet = [];
     var flickRApiUrl = "https://api.flickr.com/services/rest/";
-
     var get = $.getJSON(flickRApiUrl,{
       method : "flickr.photos.search",
       nojsoncallback : "1",
@@ -126,7 +135,6 @@ function requeteFlickRImages() {
         $("#datavide").dialog("open");
       } else {
         nbrImage = dataInfo.photos.photo.length;
-        console.log("Max Img : "+nbrImage);
         var getInfo = $.each(dataInfo.photos.photo, function(index, photo) {
 
           var farm = photo.farm;
